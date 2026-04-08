@@ -15,7 +15,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;max-width:440px;margin:0 auto;overflow-x:hidden}
 
-/* Hero / Header */
+/* Hero */
 .hero{background:var(--black);position:relative;overflow:hidden;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0a0805 0%,#1c160e 100%)}
 .hero-content{position:relative;z-index:2;padding:20px;display:flex;align-items:center;gap:15px}
@@ -31,30 +31,29 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 
 /* Grid */
 .food-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px 15px 100px}
-.food-card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid var(--border);position:relative}
+.food-card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid var(--border);position:relative;cursor:pointer}
 .card-img{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--warm)}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:10px}
 .card-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;margin-bottom:4px}
 .card-price{color:var(--gold);font-weight:700;font-size:14px}
 
-/* WhatsApp Button */
-.btn-whatsapp{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100;text-decoration:none}
+/* WhatsApp */
+.btn-whatsapp{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100}
 
-/* Admin Elements */
+/* Admin UI */
 .admin-only{display:none}
 body.is-admin .admin-only{display:flex}
 .btn-fab{position:fixed;bottom:85px;right:20px;background:var(--black);color:var(--gold);width:50px;height:50px;border-radius:50%;border:2px solid var(--gold);display:none;align-items:center;justify-content:center;font-size:24px;z-index:100;cursor:pointer}
 body.is-admin .btn-fab{display:flex}
 
-/* Modales */
+/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
-.modal{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:20px;position:relative}
+.modal{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:20px}
 .m-title{font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:15px;border-bottom:1px solid var(--gold)}
-input, select, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;border:1px solid var(--border);font-family:inherit}
+input, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;border:1px solid var(--border);font-family:inherit}
 .btn-save{background:var(--black);color:var(--gold);width:100%;padding:12px;border:1px solid var(--gold);border-radius:10px;font-weight:700;cursor:pointer}
-.btn-del{background:none;color:red;border:none;width:100%;margin-top:10px;cursor:pointer;font-size:12px}
 </style>
 </head>
 <body>
@@ -62,17 +61,13 @@ input, select, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius
 <header class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="logo-circle">
-      <img src="https://via.placeholder.com/150" id="mainLogo" alt="Logo"> </div>
-    <div class="hero-text">
-      <div class="hero-name">Soy <span>Darling</span></div>
-    </div>
+    <div class="logo-circle"><img src="https://via.placeholder.com/150" alt="Logo"></div>
+    <div class="hero-text"><div class="hero-name">Soy <span>Darling</span></div></div>
   </div>
 </header>
 
 <div class="search-wrap">
   <div class="search-inner">
-    <span>🔍</span>
     <input type="text" id="searchInput" placeholder="Buscar preparación...">
   </div>
 </div>
@@ -90,107 +85,109 @@ input, select, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius
     <div class="m-title" id="modalTitle">Nueva Preparación</div>
     <input type="text" id="fName" placeholder="Nombre del producto">
     <input type="text" id="fPrice" placeholder="Precio (ej: C$ 150)">
-    <textarea id="fDesc" placeholder="Descripción corta..."></textarea>
-    <label style="font-size: 11px; color: var(--muted);">Imagen (Galería o Cámara):</label>
-    <input type="file" id="fImg" accept="image/*"> <button class="btn-save" id="saveBtn">GUARDAR CAMBIOS</button>
-    <button class="btn-del admin-only" id="deleteBtn">Eliminar producto</button>
-    <button class="btn-del" onclick="closeModal()" style="color:var(--muted)">Cancelar</button>
+    <textarea id="fDesc" placeholder="Descripción..."></textarea>
+    <input type="file" id="fImg" accept="image/*">
+    <button class="btn-save" id="saveBtn">GUARDAR EN LA NUBE</button>
+    <button onclick="closeModal()" style="width:100%; background:none; border:none; margin-top:10px; color:gray; cursor:pointer">Cancelar</button>
+    <button class="admin-only" id="deleteBtn" style="color:red; background:none; border:none; width:100%; margin-top:10px; cursor:pointer; font-size:12px">Eliminar producto</button>
   </div>
 </div>
 
-<script>
-let items = JSON.parse(localStorage.getItem('darling_data')) || [];
-let editId = null;
-let imgData = "";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const urlParams = new URLSearchParams(window.location.search);
-if(urlParams.get('admin') === 'true') document.body.classList.add('is-admin');
+  // TU CONFIGURACIÓN REAL
+  const firebaseConfig = {
+    apiKey: "AIzaSyAbd-LPbyW8ugPDbga0700sYRFbKTjxaHo",
+    authDomain: "soy-darling.firebaseapp.com",
+    projectId: "soy-darling",
+    storageBucket: "soy-darling.firebasestorage.app",
+    messagingSenderId: "365948585235",
+    appId: "1:365948585235:web:f67789b233fd68d0e206e6"
+  };
 
-// Renderizar Productos
-function renderGrid(){
-  const grid = document.getElementById('foodGrid');
-  const term = document.getElementById('searchInput').value.toLowerCase();
-  
-  const filtered = items.filter(i => i.name.toLowerCase().includes(term));
-  
-  grid.innerHTML = filtered.map(i => `
-    <div class="food-card" onclick="checkEdit('${i.id}')">
-      <div class="card-img">
-        <img src="${i.img || 'https://via.placeholder.com/300?text=Sin+Imagen'}">
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const productsCol = collection(db, "productos");
+
+  let items = [];
+  let editId = null;
+  let imgData = "";
+
+  const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
+  if(isAdmin) document.body.classList.add('is-admin');
+
+  // Leer datos en tiempo real
+  onSnapshot(productsCol, (snapshot) => {
+    items = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderGrid();
+  });
+
+  function renderGrid() {
+    const grid = document.getElementById('foodGrid');
+    const term = document.getElementById('searchInput').value.toLowerCase();
+    grid.innerHTML = items.filter(i => i.name.toLowerCase().includes(term)).map(i => `
+      <div class="food-card" onclick="checkEdit('${i.id}')">
+        <div class="card-img"><img src="${i.img || 'https://via.placeholder.com/300'}"></div>
+        <div class="card-body">
+          <div class="card-name">${i.name}</div>
+          <div class="card-price">${i.price}</div>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="card-name">${i.name}</div>
-        <div class="card-price">${i.price}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// Lógica de Imagen
-document.getElementById('fImg').onchange = function(e){
-  const reader = new FileReader();
-  reader.onload = function(){ imgData = reader.result; };
-  reader.readAsDataURL(e.target.files[0]);
-};
-
-// Abrir Modal
-document.getElementById('fabBtn').onclick = () => {
-  editId = null;
-  imgData = "";
-  document.getElementById('modalTitle').innerText = "Nueva Preparación";
-  document.getElementById('fName').value = "";
-  document.getElementById('fPrice').value = "";
-  document.getElementById('fDesc').value = "";
-  document.getElementById('modalOverlay').classList.add('open');
-};
-
-function checkEdit(id){
-  if(!document.body.classList.contains('is-admin')) return;
-  editId = id;
-  const item = items.find(x => x.id === id);
-  document.getElementById('modalTitle').innerText = "Editar Producto";
-  document.getElementById('fName').value = item.name;
-  document.getElementById('fPrice').value = item.price;
-  document.getElementById('fDesc').value = item.desc;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-
-// Guardar
-document.getElementById('saveBtn').onclick = () => {
-  const name = document.getElementById('fName').value;
-  const price = document.getElementById('fPrice').value;
-  const desc = document.getElementById('fDesc').value;
-
-  if(!name || !price) return alert("Nombre y precio son obligatorios");
-
-  if(editId){
-    const index = items.findIndex(x => x.id === editId);
-    items[index] = { ...items[index], name, price, desc, img: imgData || items[index].img };
-  } else {
-    items.push({ id: Date.now().toString(), name, price, desc, img: imgData });
+    `).join('');
   }
 
-  localStorage.setItem('darling_data', JSON.stringify(items));
-  closeModal();
-  renderGrid();
-};
+  window.checkEdit = (id) => {
+    if(!isAdmin) return;
+    editId = id;
+    const item = items.find(x => x.id === id);
+    document.getElementById('fName').value = item.name;
+    document.getElementById('fPrice').value = item.price;
+    document.getElementById('fDesc').value = item.desc;
+    document.getElementById('modalTitle').innerText = "Editar Producto";
+    document.getElementById('modalOverlay').classList.add('open');
+  };
 
-// Eliminar
-document.getElementById('deleteBtn').onclick = () => {
-  if(!confirm("¿Eliminar este producto?")) return;
-  items = items.filter(x => x.id !== editId);
-  localStorage.setItem('darling_data', JSON.stringify(items));
-  closeModal();
-  renderGrid();
-};
+  document.getElementById('fabBtn').onclick = () => {
+    editId = null; imgData = "";
+    document.getElementById('fName').value = "";
+    document.getElementById('fPrice').value = "";
+    document.getElementById('fDesc').value = "";
+    document.getElementById('modalTitle').innerText = "Nuevo Producto";
+    document.getElementById('modalOverlay').classList.add('open');
+  };
 
-document.getElementById('searchInput').oninput = renderGrid;
+  window.closeModal = () => document.getElementById('modalOverlay').classList.remove('open');
 
-renderGrid();
+  document.getElementById('fImg').onchange = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => imgData = reader.result;
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  document.getElementById('saveBtn').onclick = async () => {
+    const name = document.getElementById('fName').value;
+    const price = document.getElementById('fPrice').value;
+    const desc = document.getElementById('fDesc').value;
+    if(!name || !price) return alert("Faltan datos");
+
+    const data = { name, price, desc, img: imgData || (editId ? items.find(x => x.id === editId).img : "") };
+    
+    if(editId) await updateDoc(doc(db, "productos", editId), data);
+    else await addDoc(productsCol, data);
+    
+    closeModal();
+  };
+
+  document.getElementById('deleteBtn').onclick = async () => {
+    if(confirm("¿Eliminar?")) {
+      await deleteDoc(doc(db, "productos", editId));
+      closeModal();
+    }
+  };
+
+  document.getElementById('searchInput').oninput = renderGrid;
 </script>
 </body>
 </html>
