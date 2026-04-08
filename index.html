@@ -23,6 +23,21 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .search-inner{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border:1px solid var(--border);border-radius:30px;padding:8px 15px}
 .search-inner input{flex:1;background:none;border:none;outline:none;color:white;font-size:14px}
 
+/* Botón de Lista de Precios */
+.price-list-trigger {
+  display: block;
+  margin: 10px 15px;
+  padding: 12px;
+  background: var(--gold);
+  color: var(--black);
+  text-align: center;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(201,150,58,0.3);
+}
+
 .cats-scroll{display:flex;gap:10px;padding:15px;overflow-x:auto;background:var(--cream);scrollbar-width:none}
 .cats-scroll::-webkit-scrollbar{display:none}
 .cat-btn{padding:8px 20px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer;transition:0.3s}
@@ -37,9 +52,51 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;height:36px;overflow:hidden}
 .card-price{color:var(--gold);font-weight:700;font-size:14px;margin-top:5px}
 
-/* Overlays */
+/* Overlays Generales */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
 .overlay.open{display:flex}
+
+/* Galería de Precios (Nueva) */
+.gallery-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+}
+.gallery-overlay.open { display: flex; }
+.gallery-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.gallery-content {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+}
+.gallery-content img {
+  scroll-snap-align: center;
+  max-width: 90%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.gallery-footer {
+  padding: 20px;
+  text-align: center;
+  color: var(--gold);
+  font-size: 13px;
+  background: rgba(0,0,0,0.5);
+}
 
 /* Card Detalle Cliente */
 .view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden;position:relative;animation:pop 0.3s ease}
@@ -77,6 +134,10 @@ body.is-admin .admin-only{display:flex}
   </div>
 </div>
 
+<a href="#" class="price-list-trigger" onclick="openPriceGallery(event)">
+  📖 VER LISTAS DE PRECIOS COMPLETAS
+</a>
+
 <div class="cats-scroll" id="catBar">
   <button class="cat-btn active" onclick="setCat('Todos')">Todos</button>
   <button class="cat-btn" onclick="setCat('Comidas')">Comidas</button>
@@ -87,6 +148,29 @@ body.is-admin .admin-only{display:flex}
 </div>
 
 <div class="grid" id="mainGrid"></div>
+
+<div class="gallery-overlay" id="galleryOverlay">
+  <div class="gallery-header">
+    <span style="font-family:serif; font-size:18px">Nuestras Listas de Precios</span>
+    <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer">&times;</button>
+  </div>
+  
+  <div class="gallery-content" id="galleryItems">
+    <img src="ListaPrecio/ARROZES.jpeg" alt="Precios Arroces">
+    <img src="ListaPrecio/BOCADILLOS.jpeg" alt="Precios Bocadillos">
+    <img src="ListaPrecio/GOURMET.jpeg" alt="Precios Gourmet">
+    <img src="ListaPrecio/PASTAS.jpeg" alt="Precios Pastas">
+    <img src="ListaPrecio/PASTELES.jpeg" alt="Precios Pasteles">
+    <img src="ListaPrecio/POLLO.jpeg" alt="Precios Pollo">
+    <img src="ListaPrecio/POSTRES.jpeg" alt="Precios Postres">
+    <img src="ListaPrecio/RES.jpeg" alt="Precios Res">
+    <img src="ListaPrecio/VARIADOS.jpeg" alt="Precios Variados">
+  </div>
+
+  <div class="gallery-footer">
+    ◀ Desliza para ver más categorías ▶
+  </div>
+</div>
 
 <div class="overlay" id="viewOverlay" onclick="closeOverlays(event)">
   <div class="view-card" onclick="event.stopPropagation()">
@@ -221,6 +305,18 @@ body.is-admin .admin-only{display:flex}
       document.getElementById('viewOverlay').classList.remove('open');
       document.getElementById('adminOverlay').classList.remove('open');
     }
+  };
+
+  // Lógica Galería de Precios
+  window.openPriceGallery = (e) => {
+    e.preventDefault();
+    document.getElementById('galleryOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden'; 
+  };
+
+  window.closePriceGallery = () => {
+    document.getElementById('galleryOverlay').classList.remove('open');
+    document.body.style.overflow = 'auto';
   };
 
   document.getElementById('fImg').onchange = (e) => {
