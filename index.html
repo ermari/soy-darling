@@ -3,95 +3,574 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Darling's Kitchen — Catálogo</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Soy Darling - Catálogo de Postres</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #c9963a; --cream: #faf5ea; --text: #2a2018; --white: #ffffff;
-  }
-  body { font-family: 'Outfit', sans-serif; background: var(--cream); margin: 0; padding-bottom: 80px; }
-  
-  /* Encabezado más compacto */
-  header { 
-    background: var(--white); 
-    padding: 15px; 
-    text-align: center; 
-    border-bottom: 1px solid var(--gold);
-    position: sticky; top: 0; z-index: 100;
-  }
-  header h1 { font-size: 1.2rem; color: var(--gold); margin: 0; text-transform: uppercase; letter-spacing: 2px; }
-  
-  /* Grid de productos */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-  .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-  .card img { width: 100%; height: 140px; object-fit: cover; }
-  .card-info { padding: 10px; }
-  .card-info h3 { font-size: 0.9rem; margin: 0 0 5px 0; }
-  .price { color: var(--gold); font-weight: 600; }
+    :root {
+        --bg-color: #F8F3EC; /* Fondo beige suave de la imagen */
+        --card-bg: #FFFFFF;
+        --text-primary: #333333;
+        --text-secondary: #777777;
+        --accent-gold: #C09A6B; /* Tono dorado/café para acentos */
+        --font-heading: 'Cormorant Garamond', serif;
+        --font-body: 'Montserrat', sans-serif;
+    }
 
-  /* Botón WhatsApp Flotante */
-  .btn-ws {
-    position: fixed; bottom: 20px; right: 20px;
-    background: #25d366; color: white; padding: 15px 20px;
-    border-radius: 50px; text-decoration: none; font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 999;
-    display: flex; align-items: center; gap: 8px;
-  }
+    body {
+        font-family: var(--font-body);
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+        color: var(--text-primary);
+        padding-bottom: 80px; /* Espacio para el botón de WhatsApp */
+    }
 
-  /* Ocultar herramientas de edición por defecto */
-  .admin-only { display: none; }
-  
-  /* Si la URL tiene ?admin=true se muestran */
-  body.is-admin .admin-only { display: block; }
-  
-  #fabBtn { position: fixed; bottom: 90px; right: 20px; background: var(--gold); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; }
+    /* --- ENCABEZADO (Header) --- */
+    header {
+        background-color: var(--card-bg);
+        padding: 15px 20px;
+        text-align: center;
+        border-bottom: 1px solid #EAEAEA;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .logo-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: #F0F0F0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #AAA;
+        border: 1px solid #E0E0E0;
+        position: absolute;
+        left: 0;
+    }
+
+    header h1 {
+        font-family: var(--font-heading);
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-primary);
+        letter-spacing: 1px;
+    }
+
+    .search-container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    #searchInput {
+        width: 100%;
+        padding: 10px 15px 10px 40px;
+        border-radius: 25px;
+        border: 1px solid #E0E0E0;
+        background-color: #FAFAFA;
+        font-family: var(--font-body);
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #AAA;
+        font-size: 16px;
+    }
+
+    /* --- CUADRÍCULA DE PRODUCTOS (Grid) --- */
+    .catalog-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+        gap: 15px;
+    }
+
+    @media (min-width: 768px) {
+        .product-grid {
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas en tablets */
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .product-grid {
+            grid-template-columns: repeat(4, 1fr); /* 4 columnas en desktop */
+        }
+    }
+
+    /* --- TARJETA DE PRODUCTO (Card) --- */
+    .product-card {
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave de la imagen */
+        transition: transform 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .product-card:active {
+        transform: scale(0.98);
+    }
+
+    .image-container {
+        width: 100%;
+        padding-top: 100%; /* Relación de aspecto 1:1 (cuadrado) */
+        position: relative;
+        background-color: #F0F0F0;
+    }
+
+    .product-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-info {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-category {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: var(--accent-gold);
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .product-name {
+        font-family: var(--font-heading);
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        color: var(--text-primary);
+        line-height: 1.2;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+    }
+
+    .product-price {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    /* Botones de la tarjeta estilo imagen */
+    .action-buttons {
+        display: flex;
+        gap: 5px;
+    }
+
+    .btn-details {
+        background: none;
+        border: 1px solid #E0E0E0;
+        color: var(--text-secondary);
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 10px;
+        font-family: var(--font-body);
+        cursor: pointer;
+    }
+
+    .btn-add {
+        background-color: var(--text-primary);
+        border: none;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* --- BOTÓN WHATSAPP FLOTANTE --- */
+    .whatsapp-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    .whatsapp-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .whatsapp-icon {
+        width: 30px;
+        height: 30px;
+        fill: white;
+    }
+
+    /* --- ESTILOS PARA ADMIN (Ocultos por defecto) --- */
+    .admin-controls {
+        display: none; /* Se activa con ?admin=true */
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    body.is-admin .admin-controls {
+        display: flex;
+    }
+
+    .btn-admin {
+        background-color: var(--accent-gold);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-size: 12px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .admin-edit-overlay {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        gap: 5px;
+    }
+
+    body.is-admin .product-card:hover .admin-edit-overlay {
+        display: flex;
+    }
+
+    /* --- MODAL (Para agregar/editar - Estructura básica) --- */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        position: relative;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 20px;
+        cursor: pointer;
+        color: #AAA;
+    }
+
+    .modal input, .modal select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #E0E0E0;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--text-primary);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Darling's Kitchen</h1>
-  <input type="text" id="searchInput" placeholder="Buscar preparación..." style="width: 90%; margin-top: 10px; padding: 8px; border-radius: 20px; border: 1px solid #ddd;">
+    <div class="header-top">
+        <div class="logo-placeholder">LOGO</div>
+        <h1>Soy Darling</h1>
+    </div>
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar tu postre favorito...">
+    </div>
 </header>
 
-<div class="grid" id="grid"></div>
+<div class="admin-controls">
+    <button class="btn-admin" onclick="openModal()">+ Agregar Producto</button>
+    <button class="btn-admin" style="background-color: #555;" onclick="alert('Próximamente: Configurar conexión en tiempo real')">☁️ Conectar Base de Datos</button>
+</div>
 
-<a href="https://wa.me/50557031282?text=Hola!%20Me%20gustaría%20ordenar%20algo%20del%20catálogo" class="btn-ws" target="_blank">
-  <span>Pedir por WhatsApp</span>
+<div class="catalog-container">
+    <div class="product-grid" id="productGrid">
+        </div>
+</div>
+
+<a href="https://wa.me/50557031282?text=¡Hola!%20Vi%20tu%20catálogo%20y%20me%20gustaría%20cotizar%20un%20postre." class="whatsapp-btn" target="_blank" title="Contáctanos por WhatsApp">
+    <svg class="whatsapp-icon" viewBox="0 0 448 512">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L32 512l143.8-37.7c32.7 17.7 69.4 27.1 107.4 27.1 122.4 0 222-99.6 222-222 0-59.3-23.1-115.1-65.1-157.1zM223.9 474.5c-33.1 0-65.6-8.9-93.9-25.7l-6.7-4-85.3 22.4 22.8-83.2-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 54 81.2 54 130.4 0 101.7-82.8 184.5-184.5 184.5zm118.6-136.6c-6.5-3.2-38.3-18.9-44.2-21.1-5.9-2.2-10.2-3.2-14.5 3.2-4.3 6.5-16.6 21.1-20.4 25.4-3.8 4.3-7.5 4.9-14 1.6-6.5-3.2-27.4-10.1-52.2-32.2-19.3-17.2-32.3-38.5-36.1-44.9-3.8-6.5-.4-10 2.8-13.2 2.9-2.9 6.5-7.5 9.7-11.3 3.2-3.8 4.3-6.5 6.5-10.8 2.2-4.3 1.1-8.1-.5-11.3-1.6-3.2-14.5-34.9-19.9-47.8-5.3-12.8-10.8-11.1-14.8-11.1-3.8 0-8.1-.1-12.4-.1-4.3 0-11.3 1.6-17.2 8.1-5.9 6.5-22.6 22.1-22.6 53.8s23.1 62.4 26.3 66.7c3.2 4.3 45.4 69.4 110.1 97.3 15.4 6.6 27.4 10.6 36.8 13.6 15.5 4.9 29.6 4.2 40.8 2.5 12.5-1.9 38.3-15.6 43.7-30.7 5.4-15.1 5.4-28.1 3.8-30.7-1.7-2.6-6-4.3-12.4-7.6z"/>
+    </svg>
 </a>
 
-<button id="fabBtn" class="admin-only" onclick="openModal()">+</button>
+<div class="modal" id="productModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 id="modalTitle" style="font-family: var(--font-heading);">Agregar Producto</h3>
+        <input type="text" id="pName" placeholder="Nombre del Postre (ej: Pastel de Fresa)">
+        <select id="pCategory">
+            <option value="Pasteles">Pasteles</option>
+            <option value="Cupcakes">Cupcakes</option>
+            <option value="Galletas">Galletas</option>
+            <option value="Otros">Otros</option>
+        </select>
+        <input type="number" id="pPrice" placeholder="Precio (C$)">
+        
+        <label style="font-size: 12px; color: #777; display: block; margin-bottom: 5px;">Imagen del producto</label>
+        <input type="file" id="pImg" accept="image/*">
+        
+        <button class="btn-submit" onclick="saveProduct()">Guardar Producto</button>
+        <p style="font-size: 10px; color: red; margin-top: 10px; text-align: center;">Nota: Actualmente los cambios solo se guardan en este navegador. Necesitas conectar la Base de Datos para que sean públicos.</p>
+    </div>
+</div>
 
-<input type="file" id="fImg" accept="image/*" style="display:none"> 
 <script>
-  // Verificar si es administrador
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('admin') === 'true') {
-    document.body.classList.add('is-admin');
-  }
+    // 1. GESTIÓN DE MODO ADMIN
+    const urlParams = new URLSearchParams(window.location.search);
+    const isAdmin = urlParams.get('admin') === 'true';
+    
+    if (isAdmin) {
+        document.body.classList.add('is-admin');
+        console.log("Modo Administrador activado.");
+    }
 
-  let items = JSON.parse(localStorage.getItem('cat_darling') || '[]');
+    // 2. DATOS DE EJEMPLO (Simulando la base de datos futura)
+    // Cuando conectemos Firebase, esta lista se llenará automáticamente desde la nube.
+    let products = [
+        { id: '1', name: 'Pastel de Chocolate Premium', category: 'Pasteles', price: 450, img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400&auto=format&fit=cover' },
+        { id: '2', name: 'Cupcakes de Vainilla (6 uds)', category: 'Cupcakes', price: 220, img: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=400&auto=format&fit=cover' },
+        { id: '3', name: 'Galletas de Chispas de Chocolate', category: 'Galletas', price: 150, img: 'https://images.unsplash.com/photo-1558961309-629240b36dc8?q=80&w=400&auto=format&fit=cover' },
+        { id: '4', name: 'Cheesecake de Fresa', category: 'Pasteles', price: 480, img: 'https://images.unsplash.com/photo-1567327613434-df6304724a8d?q=80&w=400&auto=format&fit=cover' },
+    ];
 
-  function renderGrid() {
-    const grid = document.getElementById('grid');
-    const term = document.getElementById('searchInput').value.toLowerCase();
-    grid.innerHTML = items.filter(i => i.name.toLowerCase().includes(term)).map(i => `
-      <div class="card">
-        <img src="${i.img || 'https://via.placeholder.com/150'}" onclick="${urlParams.get('admin') ? `editItem('${i.id}')` : ''}">
-        <div class="card-info">
-          <h3>${i.name}</h3>
-          <p class="price">C$ ${i.price}</p>
-          ${urlParams.get('admin') ? `<button onclick="deleteItem('${i.id}')" style="font-size:10px; color:red; border:none; background:none;">Eliminar</button>` : ''}
-        </div>
-      </div>
-    `).join('');
-  }
+    // Cargar productos guardados localmente (temporalmente)
+    const savedProducts = localStorage.getItem('soyDarlingCatalog');
+    if (savedProducts) {
+        products = JSON.parse(savedProducts);
+    }
 
-  // Funciones de guardado (localStorage por ahora)
-  // Para centralizar datos REALMENTE, necesitarás subir el archivo index.html 
-  // con los datos ya escritos o usar una base de datos.
-  
-  renderGrid();
+    // 3. RENDERIZAR LA CUADRÍCULA (Grid)
+    function renderGrid(productsToRender) {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = ''; // Limpiar grid
+
+        productsToRender.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            card.innerHTML = `
+                <div class="image-container">
+                    <img src="${product.img}" alt="${product.name}" class="product-image">
+                    <div class="admin-edit-overlay">
+                        <button class="btn-details" style="background-color: rgba(255,255,255,0.8); border:none;" onclick="editProduct('${product.id}')">✏️</button>
+                        <button class="btn-details" style="background-color: rgba(255,0,0,0.6); border:none; color:white;" onclick="deleteProduct('${product.id}')">🗑️</button>
+                    </div>
+                </div>
+                <div class="card-info">
+                    <div>
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="product-price">C$ ${product.price}</div>
+                        <div class="action-buttons">
+                            <button class="btn-details">Ver Detalles</button>
+                            <button class="btn-add">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Inicializar el grid
+    renderGrid(products);
+
+    // 4. BÚSQUEDA
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) || 
+            product.category.toLowerCase().includes(searchTerm)
+        );
+        renderGrid(filteredProducts);
+    });
+
+    // 5. GESTIÓN DEL MODAL (Abrir/Cerrar)
+    const modal = document.getElementById('productModal');
+    let currentEditingId = null;
+
+    function openModal(isEdit = false) {
+        modal.style.display = 'flex';
+        if (!isEdit) {
+            document.getElementById('modalTitle').innerText = 'Agregar Producto';
+            clearModalInputs();
+            currentEditingId = null;
+        }
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    function clearModalInputs() {
+        document.getElementById('pName').value = '';
+        document.getElementById('pCategory').value = 'Pasteles';
+        document.getElementById('pPrice').value = '';
+        document.getElementById('pImg').value = '';
+    }
+
+    // Cerrar modal si se hace clic fuera del contenido
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // 6. FUNCIONES DE LÓGICA (Temporales usando localStorage)
+    // NOTA: Esto solo guarda los cambios en TU navegador. 
+    // Los clientes NO verán estos cambios hasta que conectemos Firebase.
+
+    function saveProduct() {
+        const name = document.getElementById('pName').value;
+        const category = document.getElementById('pCategory').value;
+        const price = document.getElementById('pPrice').value;
+        const imgInput = document.getElementById('pImg');
+        
+        if (!name || !price) {
+            alert("Por favor, completa el nombre y el precio.");
+            return;
+        }
+
+        // Lógica temporal para manejar la imagen (usando una imagen de placeholder si no se sube una)
+        // En la versión final con Firebase, aquí subiríamos la imagen a la nube.
+        let imgUrl = 'https://via.placeholder.com/400x400.png?text=Postre+Sin+Foto';
+        
+        if (imgInput.files && imgInput.files[0]) {
+            // Esto es solo una previsualización local, no funciona para guardar permanentemente sin base de datos
+            imgUrl = URL.createObjectURL(imgInput.files[0]); 
+            alert("Nota: La subida de imágenes real se configurará en el siguiente paso con la base de datos.");
+        }
+
+        if (currentEditingId) {
+            // Editar existente
+            const index = products.findIndex(p => p.id === currentEditingId);
+            if (index !== -1) {
+                products[index] = { ...products[index], name, category, price: parseFloat(price) };
+                // En edición no actualizamos la imagen localmente para no romper el placeholder
+            }
+        } else {
+            // Agregar nuevo
+            const newProduct = {
+                id: Date.now().toString(), // ID simple temporal
+                name,
+                category,
+                price: parseFloat(price),
+                img: imgUrl
+            };
+            products.push(newProduct);
+        }
+
+        // Guardar localmente y renderizar
+        localStorage.setItem('soyDarlingCatalog', JSON.stringify(products));
+        renderGrid(products);
+        closeModal();
+    }
+
+    function editProduct(id) {
+        const product = products.find(p => p.id === id);
+        if (product) {
+            currentEditingId = id;
+            document.getElementById('modalTitle').innerText = 'Editar Producto';
+            document.getElementById('pName').value = product.name;
+            document.getElementById('pCategory').value = product.category;
+            document.getElementById('pPrice').value = product.price;
+            openModal(true);
+        }
+    }
+
+    function deleteProduct(id) {
+        if (confirm("¿Estás seguro de que deseas eliminar este producto? (Recuerda que esto solo afecta a tu navegador actual por ahora)")) {
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('soyDarlingCatalog', JSON.stringify(products));
+            renderGrid(products);
+        }
+    }
+
 </script>
+
 </body>
 </html>
