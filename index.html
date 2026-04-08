@@ -16,80 +16,120 @@
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;max-width:440px;margin:0 auto;overflow-x:hidden}
 
 /* Hero */
-.hero{background:var(--black);position:relative;overflow:hidden;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end}
+.hero{background:var(--black);position:relative;overflow:hidden;min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,#0a0805 0%,#1c160e 100%)}
-.hero-content{position:relative;z-index:2;padding:20px;display:flex;align-items:center;gap:15px}
-.logo-circle{width:80px;height:80px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;flex-shrink:0}
+.logo-circle{position:relative;width:90px;height:90px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;margin-bottom:10px}
 .logo-circle img{width:100%;height:100%;object-fit:cover}
-.hero-name{font-family:'Cormorant Garamond',serif;font-size:28px;color:white;font-weight:700}
+.hero-name{position:relative;font-family:'Cormorant Garamond',serif;font-size:28px;color:white;font-weight:700}
 .hero-name span{color:var(--gold-light);font-style:italic}
 
+/* Categorías */
+.cats{display:flex;gap:10px;padding:15px;overflow-x:auto;scrollbar-width:none;background:var(--cream);position:sticky;top:55px;z-index:40}
+.cats::-webkit-scrollbar{display:none}
+.cat-btn{padding:8px 18px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer;transition:0.3s}
+.cat-btn.active{background:var(--black);color:var(--gold);border-color:var(--gold)}
+
 /* Search */
-.search-wrap{background:var(--rich);padding:10px 15px;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--border)}
+.search-wrap{background:var(--rich);padding:10px 15px;position:sticky;top:0;z-index:50}
 .search-inner{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:30px;padding:8px 15px}
 .search-inner input{flex:1;background:none;border:none;outline:none;color:white;font-size:14px}
 
 /* Grid */
-.food-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px 15px 100px}
-.food-card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid var(--border);position:relative;cursor:pointer}
+.food-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 100px}
+.food-card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid var(--border);cursor:pointer}
 .card-img{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--warm)}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:10px}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;margin-bottom:4px}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;height:40px;overflow:hidden}
 .card-price{color:var(--gold);font-weight:700;font-size:14px}
 
-/* WhatsApp */
-.btn-whatsapp{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:100}
+/* Detalle Pantalla Completa */
+.detail-overlay{position:fixed;inset:0;background:white;z-index:300;display:none;flex-direction:column;overflow-y:auto;animation:slideUp 0.3s ease-out}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.detail-img{width:100%;aspect-ratio:1/1;position:relative}
+.detail-img img{width:100%;height:100%;object-fit:cover}
+.detail-close{position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.5);color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:none;cursor:pointer}
+.detail-info{padding:25px}
+.detail-cat{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.detail-name{font-family:'Cormorant Garamond',serif;font-size:32px;margin:10px 0}
+.detail-price{font-size:24px;font-weight:700;color:var(--text);margin-bottom:20px}
+.detail-desc{line-height:1.6;color:var(--muted);font-size:15px}
 
 /* Admin UI */
 .admin-only{display:none}
 body.is-admin .admin-only{display:flex}
-.btn-fab{position:fixed;bottom:85px;right:20px;background:var(--black);color:var(--gold);width:50px;height:50px;border-radius:50%;border:2px solid var(--gold);display:none;align-items:center;justify-content:center;font-size:24px;z-index:100;cursor:pointer}
+.btn-fab{position:fixed;bottom:85px;right:20px;background:var(--black);color:var(--gold);width:55px;height:55px;border-radius:50%;border:2px solid var(--gold);display:none;align-items:center;justify-content:center;font-size:24px;z-index:100}
 body.is-admin .btn-fab{display:flex}
 
-/* Modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.open{display:flex}
-.modal{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:20px}
-.m-title{font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:15px;border-bottom:1px solid var(--gold)}
-input, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;border:1px solid var(--border);font-family:inherit}
-.btn-save{background:var(--black);color:var(--gold);width:100%;padding:12px;border:1px solid var(--gold);border-radius:10px;font-weight:700;cursor:pointer}
+/* Modal Form */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+.modal{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:20px;max-height:90vh;overflow-y:auto}
+input, textarea, select{width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
+.btn-save{background:var(--black);color:var(--gold);width:100%;padding:14px;border:1px solid var(--gold);border-radius:10px;font-weight:700;cursor:pointer}
+
+/* WhatsApp */
+.wa-btn{position:fixed;bottom:20px;right:20px;background:#25d366;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:100}
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="logo-circle"><img src="https://via.placeholder.com/150" alt="Logo"></div>
-    <div class="hero-text"><div class="hero-name">Soy <span>Darling</span></div></div>
-  </div>
-</header>
-
 <div class="search-wrap">
   <div class="search-inner">
-    <input type="text" id="searchInput" placeholder="Buscar preparación...">
+    <input type="text" id="searchInput" placeholder="Buscar en el catálogo...">
   </div>
+</div>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="logo-circle"><img src="https://via.placeholder.com/150" alt="Logo"></div>
+  <div class="hero-name">Soy <span>Darling</span></div>
+</header>
+
+<div class="cats" id="catBar">
+  <button class="cat-btn active" onclick="filterCat('Todos')">Todos</button>
+  <button class="cat-btn" onclick="filterCat('Postres')">Postres</button>
+  <button class="cat-btn" onclick="filterCat('Bebidas')">Bebidas</button>
+  <button class="cat-btn" onclick="filterCat('Panadería')">Panadería</button>
+  <button class="cat-btn" onclick="filterCat('Especiales')">Especiales</button>
 </div>
 
 <div class="food-grid" id="foodGrid"></div>
 
-<a href="https://wa.me/50557031282" class="btn-whatsapp" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="30" style="filter:invert(1)">
-</a>
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-img">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <img id="dImg" src="">
+  </div>
+  <div class="detail-info">
+    <div class="detail-cat" id="dCat">Categoría</div>
+    <h1 class="detail-name" id="dName">Nombre del Producto</h1>
+    <div class="detail-price" id="dPrice">C$ 0.00</div>
+    <p class="detail-desc" id="dDesc">Descripción detallada aquí...</p>
+    <br>
+    <button class="btn-save admin-only" id="editFromDetail">EDITAR ESTE PRODUCTO</button>
+  </div>
+</div>
 
+<a href="https://wa.me/50557031282" class="wa-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="30" style="filter:invert(1)"></a>
 <button class="btn-fab admin-only" id="fabBtn">+</button>
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <div class="m-title" id="modalTitle">Nueva Preparación</div>
-    <input type="text" id="fName" placeholder="Nombre del producto">
-    <input type="text" id="fPrice" placeholder="Precio (ej: C$ 150)">
-    <textarea id="fDesc" placeholder="Descripción..."></textarea>
+    <h2 id="modalTitle" style="margin-bottom:15px; font-family:serif">Producto</h2>
+    <input type="text" id="fName" placeholder="Nombre">
+    <input type="text" id="fPrice" placeholder="Precio">
+    <select id="fCat">
+      <option value="Postres">Postres</option>
+      <option value="Bebidas">Bebidas</option>
+      <option value="Panadería">Panadería</option>
+      <option value="Especiales">Especiales</option>
+    </select>
+    <textarea id="fDesc" placeholder="Descripción" rows="3"></textarea>
+    <label style="font-size:11px">Imagen (se comprimirá automáticamente):</label>
     <input type="file" id="fImg" accept="image/*">
-    <button class="btn-save" id="saveBtn">GUARDAR EN LA NUBE</button>
+    <button class="btn-save" id="saveBtn">GUARDAR CAMBIOS</button>
     <button onclick="closeModal()" style="width:100%; background:none; border:none; margin-top:10px; color:gray; cursor:pointer">Cancelar</button>
-    <button class="admin-only" id="deleteBtn" style="color:red; background:none; border:none; width:100%; margin-top:10px; cursor:pointer; font-size:12px">Eliminar producto</button>
+    <button class="admin-only" id="deleteBtn" style="color:red; background:none; border:none; width:100%; margin-top:15px; cursor:pointer">Eliminar producto</button>
   </div>
 </div>
 
@@ -97,7 +137,7 @@ input, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;bor
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  // TU CONFIGURACIÓN REAL
+  // --- PEGA TUS CLAVES AQUÍ ---
   const firebaseConfig = {
     apiKey: "AIzaSyAbd-LPbyW8ugPDbga0700sYRFbKTjxaHo",
     authDomain: "soy-darling.firebaseapp.com",
@@ -109,26 +149,34 @@ input, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;bor
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const productsCol = collection(db, "productos");
+  const col = collection(db, "productos");
 
   let items = [];
+  let currentCat = "Todos";
   let editId = null;
-  let imgData = "";
+  let imgBase64 = "";
 
   const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
   if(isAdmin) document.body.classList.add('is-admin');
 
-  // Leer datos en tiempo real
-  onSnapshot(productsCol, (snapshot) => {
-    items = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderGrid();
+  // Cargar datos
+  onSnapshot(col, (snap) => {
+    items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    render();
   });
 
-  function renderGrid() {
+  function render() {
     const grid = document.getElementById('foodGrid');
     const term = document.getElementById('searchInput').value.toLowerCase();
-    grid.innerHTML = items.filter(i => i.name.toLowerCase().includes(term)).map(i => `
-      <div class="food-card" onclick="checkEdit('${i.id}')">
+    
+    const filtered = items.filter(i => {
+      const matchCat = currentCat === "Todos" || i.cat === currentCat;
+      const matchSearch = i.name.toLowerCase().includes(term);
+      return matchCat && matchSearch;
+    });
+
+    grid.innerHTML = filtered.map(i => `
+      <div class="food-card" onclick="showDetail('${i.id}')">
         <div class="card-img"><img src="${i.img || 'https://via.placeholder.com/300'}"></div>
         <div class="card-body">
           <div class="card-name">${i.name}</div>
@@ -138,56 +186,106 @@ input, textarea{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;bor
     `).join('');
   }
 
-  window.checkEdit = (id) => {
-    if(!isAdmin) return;
-    editId = id;
-    const item = items.find(x => x.id === id);
-    document.getElementById('fName').value = item.name;
-    document.getElementById('fPrice').value = item.price;
-    document.getElementById('fDesc').value = item.desc;
-    document.getElementById('modalTitle').innerText = "Editar Producto";
-    document.getElementById('modalOverlay').classList.add('open');
+  // Filtrado
+  window.filterCat = (cat) => {
+    currentCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      b.classList.toggle('active', b.innerText === cat);
+    });
+    render();
   };
 
+  // Detalle
+  window.showDetail = (id) => {
+    const i = items.find(x => x.id === id);
+    document.getElementById('dImg').src = i.img || 'https://via.placeholder.com/300';
+    document.getElementById('dName').innerText = i.name;
+    document.getElementById('dPrice').innerText = i.price;
+    document.getElementById('dCat').innerText = i.cat || "Postre";
+    document.getElementById('dDesc').innerText = i.desc || "";
+    document.getElementById('detailOverlay').style.display = 'flex';
+    
+    document.getElementById('editFromDetail').onclick = () => {
+        closeDetail();
+        openEdit(id);
+    };
+  };
+
+  window.closeDetail = () => document.getElementById('detailOverlay').style.display = 'none';
+
+  // --- COMPRESOR DE IMÁGENES ---
+  document.getElementById('fImg').onchange = (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800; // Tamaño optimizado para web
+        const scale = MAX_WIDTH / img.width;
+        canvas.width = MAX_WIDTH;
+        canvas.height = img.height * scale;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // Comprimimos al 70% de calidad para que pese poco
+        imgBase64 = canvas.toDataURL('image/jpeg', 0.7);
+      };
+    };
+  };
+
+  // CRUD
+  function openEdit(id) {
+    editId = id;
+    const i = items.find(x => x.id === id);
+    document.getElementById('fName').value = i.name;
+    document.getElementById('fPrice').value = i.price;
+    document.getElementById('fDesc').value = i.desc;
+    document.getElementById('fCat').value = i.cat || "Postres";
+    imgBase64 = i.img;
+    document.getElementById('modalTitle').innerText = "Editar";
+    document.getElementById('modalOverlay').style.display = 'flex';
+  }
+
   document.getElementById('fabBtn').onclick = () => {
-    editId = null; imgData = "";
+    editId = null; imgBase64 = "";
     document.getElementById('fName').value = "";
     document.getElementById('fPrice').value = "";
     document.getElementById('fDesc').value = "";
-    document.getElementById('modalTitle').innerText = "Nuevo Producto";
-    document.getElementById('modalOverlay').classList.add('open');
+    document.getElementById('modalTitle').innerText = "Nuevo";
+    document.getElementById('modalOverlay').style.display = 'flex';
   };
 
-  window.closeModal = () => document.getElementById('modalOverlay').classList.remove('open');
-
-  document.getElementById('fImg').onchange = (e) => {
-    const reader = new FileReader();
-    reader.onload = () => imgData = reader.result;
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  window.closeModal = () => document.getElementById('modalOverlay').style.display = 'none';
 
   document.getElementById('saveBtn').onclick = async () => {
-    const name = document.getElementById('fName').value;
-    const price = document.getElementById('fPrice').value;
-    const desc = document.getElementById('fDesc').value;
-    if(!name || !price) return alert("Faltan datos");
+    const data = {
+      name: document.getElementById('fName').value,
+      price: document.getElementById('fPrice').value,
+      desc: document.getElementById('fDesc').value,
+      cat: document.getElementById('fCat').value,
+      img: imgBase64
+    };
+    if(!data.name || !data.price) return alert("Nombre y precio obligatorios");
 
-    const data = { name, price, desc, img: imgData || (editId ? items.find(x => x.id === editId).img : "") };
-    
     if(editId) await updateDoc(doc(db, "productos", editId), data);
-    else await addDoc(productsCol, data);
+    else await addDoc(col, data);
     
     closeModal();
   };
 
   document.getElementById('deleteBtn').onclick = async () => {
-    if(confirm("¿Eliminar?")) {
+    if(confirm("¿Eliminar para siempre?")) {
       await deleteDoc(doc(db, "productos", editId));
       closeModal();
     }
   };
 
-  document.getElementById('searchInput').oninput = renderGrid;
+  document.getElementById('searchInput').oninput = render;
 </script>
 </body>
 </html>
