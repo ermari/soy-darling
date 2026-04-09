@@ -23,103 +23,50 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .search-inner{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border:1px solid var(--border);border-radius:30px;padding:8px 15px}
 .search-inner input{flex:1;background:none;border:none;outline:none;color:white;font-size:14px}
 
-/* Botón de Lista de Precios */
 .price-list-trigger {
-  display: block;
-  margin: 10px 15px;
-  padding: 12px;
-  background: var(--gold);
-  color: var(--black);
-  text-align: center;
-  border-radius: 10px;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 14px;
-  box-shadow: 0 4px 10px rgba(201,150,58,0.3);
+  display: block; margin: 10px 15px; padding: 12px; background: var(--gold);
+  color: var(--black); text-align: center; border-radius: 10px;
+  font-weight: 700; text-decoration: none; font-size: 14px;
 }
 
 .cats-scroll{display:flex;gap:10px;padding:15px;overflow-x:auto;background:var(--cream);scrollbar-width:none}
-.cats-scroll::-webkit-scrollbar{display:none}
-.cat-btn{padding:8px 20px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer;transition:0.3s}
+.cat-btn{padding:8px 20px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer}
 .cat-btn.active{background:var(--black);color:var(--gold);border-color:var(--gold)}
 
-/* Grid de Productos */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 100px}
-.card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);border:1px solid var(--border);cursor:pointer}
-.card-img{width:100%;aspect-ratio:1/1;background:#eee;overflow:hidden}
+.card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);border:1px solid var(--border)}
+.card-img{width:100%;aspect-ratio:1/1;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-info{padding:10px}
 .card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;height:36px;overflow:hidden}
 .card-price{color:var(--gold);font-weight:700;font-size:14px;margin-top:5px}
 
-/* Overlays Generales */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
 .overlay.open{display:flex}
 
 /* Galería de Precios */
-.gallery-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  z-index: 1000;
-  display: none;
-  flex-direction: column;
-}
+.gallery-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; display: none; flex-direction: column; }
 .gallery-overlay.open { display: flex; }
-.gallery-header {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-}
-.gallery-content {
-  flex: 1;
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  align-items: center;
-  gap: 15px;
-  padding: 20px;
-}
-.gallery-content img {
-  scroll-snap-align: center;
-  max-width: 90%;
-  max-height: 75vh;
-  object-fit: contain;
-  border-radius: 10px;
-}
-.gallery-footer {
-  padding: 20px;
-  text-align: center;
-  color: var(--gold);
-  font-size: 13px;
-  background: rgba(0,0,0,0.5);
-}
+.gallery-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; color: white; }
+.gallery-content { flex: 1; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; align-items: center; gap: 15px; padding: 20px; }
+.gallery-content img { scroll-snap-align: center; max-width: 90%; max-height: 75vh; object-fit: contain; border-radius: 10px; }
 
-/* Formulario Admin y Previsualización */
+/* Formulario Admin */
 .modal-form{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:25px;max-height:90vh;overflow-y:auto}
 input, select, textarea{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
-.btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);border:1px solid var(--gold);border-radius:10px;font-weight:700;cursor:pointer}
+.btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);font-weight:700;cursor:pointer;border-radius:10px;border:none}
 #imgPreview{width:100px;height:100px;object-fit:cover;border-radius:10px;margin-bottom:10px;display:none;border:2px solid var(--gold)}
 
-/* Vista Cliente */
-.view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden;position:relative;animation:pop 0.3s ease}
-.view-img{width:100%;aspect-ratio:1.2/1;background:#000}
-.view-img img{width:100%;height:100%;object-fit:cover}
-.view-content{padding:20px}
-.view-title{font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:5px}
-.view-price{font-size:18px;font-weight:700;color:var(--gold);margin-bottom:15px}
-.order-box{background:var(--cream);padding:15px;border-radius:12px;margin-top:10px}
-.order-box textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;resize:none;margin-bottom:10px}
-.btn-wa{width:100%;background:#25d366;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
-
-/* Floating Actions */
+/* Botón flotante */
 .admin-only{display:none}
 body.is-admin .admin-only{display:flex}
-.fab-add{position:fixed;bottom:30px;right:20px;background:var(--black);color:var(--gold);width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);z-index:200;align-items:center;justify-content:center;font-size:30px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.4)}
+.fab-add{position:fixed;bottom:30px;right:20px;background:var(--black);color:var(--gold);width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);z-index:200;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 15px rgba(0,0,0,0.4)}
 
-@keyframes pop{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+/* Vista Cliente */
+.view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden}
+.view-img img{width:100%;aspect-ratio:1.2/1;object-fit:cover}
+.view-content{padding:20px}
+.btn-wa{width:100%;background:#25d366;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
 </style>
 </head>
 <body>
@@ -134,9 +81,7 @@ body.is-admin .admin-only{display:flex}
   </div>
 </div>
 
-<a href="#" class="price-list-trigger" onclick="openPriceGallery(event)">
-  📖 VER LISTAS DE PRECIOS COMPLETAS
-</a>
+<a href="#" class="price-list-trigger" onclick="openPriceGallery(event)">📖 VER LISTAS DE PRECIOS</a>
 
 <div class="cats-scroll" id="catBar">
   <button class="cat-btn active" onclick="setCat('Todos')">Todos</button>
@@ -149,47 +94,10 @@ body.is-admin .admin-only{display:flex}
 
 <div class="grid" id="mainGrid"></div>
 
-<div class="gallery-overlay" id="galleryOverlay">
-  <div class="gallery-header">
-    <span style="font-family:serif; font-size:18px">Listas de Precios</span>
-    <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer">&times;</button>
-  </div>
-  <div class="gallery-content" id="galleryItems">
-    <img src="ListaPrecio/ARROZES.jpeg" alt="Precios Arroces">
-    <img src="ListaPrecio/BOCADILLOS.jpeg" alt="Precios Bocadillos">
-    <img src="ListaPrecio/GOURMET.jpeg" alt="Precios Gourmet">
-    <img src="ListaPrecio/PASTAS.jpeg" alt="Precios Pastas">
-    <img src="ListaPrecio/PASTELES.jpeg" alt="Precios Pasteles">
-    <img src="ListaPrecio/POLLO.jpeg" alt="Precios Pollo">
-    <img src="ListaPrecio/POSTRES.jpeg" alt="Precios Postres">
-    <img src="ListaPrecio/RES.jpeg" alt="Precios Res">
-    <img src="ListaPrecio/VARIADOS.jpeg" alt="Precios Variados">
-  </div>
-  <div class="gallery-footer">◀ Desliza para ver más ▶</div>
-</div>
-
-<div class="overlay" id="viewOverlay" onclick="closeOverlays(event)">
-  <div class="view-card" onclick="event.stopPropagation()">
-    <div class="view-img"><img id="vImg" src=""></div>
-    <div class="view-content">
-      <h2 class="view-title" id="vTitle">Nombre</h2>
-      <div class="view-price" id="vPrice">C$ 0</div>
-      <p id="vDesc" style="font-size:14px; color:gray; margin-bottom:15px"></p>
-      <div class="order-box">
-        <textarea id="clientNote" placeholder="Escribe aquí tu pedido o consulta..." rows="2"></textarea>
-        <button class="btn-wa" id="btnSendWA">PEDIR POR WHATSAPP</button>
-      </div>
-      <button onclick="document.getElementById('viewOverlay').classList.remove('open')" style="width:100%; background:none; border:none; margin-top:15px; color:gray">Cerrar</button>
-    </div>
-  </div>
-</div>
-
 <div class="overlay" id="adminOverlay" onclick="closeOverlays(event)">
   <div class="modal-form" onclick="event.stopPropagation()">
     <h3 id="formTitle" style="margin-bottom:15px; font-family:serif">Producto</h3>
-    <div style="text-align:center">
-        <img id="imgPreview" src="">
-    </div>
+    <div style="text-align:center"><img id="imgPreview" src=""></div>
     <input type="text" id="fName" placeholder="Nombre">
     <input type="text" id="fPrice" placeholder="Precio">
     <select id="fCat">
@@ -200,10 +108,41 @@ body.is-admin .admin-only{display:flex}
       <option value="Eventos">Eventos</option>
     </select>
     <textarea id="fDesc" placeholder="Descripción" rows="3"></textarea>
-    <label style="font-size:12px; color:var(--muted)">Elegir de Cámara o Galería (Favoritos):</label>
-    <input type="file" id="fImg" accept="image/*">
-    <button class="btn-main" id="btnSave">GUARDAR CAMBIOS</button>
-    <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">ELIMINAR PRODUCTO</button>
+    
+    <p style="font-size:12px; margin-bottom:5px; color:var(--muted)">Foto del producto:</p>
+    <input type="file" id="fImg" accept="image/*" style="border:none; padding:0">
+    
+    <button class="btn-main" id="btnSave">GUARDAR PRODUCTO</button>
+    <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">Eliminar</button>
+  </div>
+</div>
+
+<div class="overlay" id="viewOverlay" onclick="closeOverlays(event)">
+  <div class="view-card" onclick="event.stopPropagation()">
+    <div class="view-img"><img id="vImg" src=""></div>
+    <div class="view-content">
+      <h2 id="vTitle" style="font-family:serif">Nombre</h2>
+      <div id="vPrice" style="color:var(--gold); font-weight:700; margin-bottom:10px">C$ 0</div>
+      <p id="vDesc" style="font-size:14px; color:gray; margin-bottom:15px"></p>
+      <div style="background:var(--cream); padding:10px; border-radius:10px">
+        <textarea id="clientNote" placeholder="Nota adicional..." rows="2"></textarea>
+        <button class="btn-wa" id="btnSendWA">PEDIR POR WHATSAPP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gallery-overlay" id="galleryOverlay">
+  <div class="gallery-header">
+    <span>Precios</span>
+    <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px">&times;</button>
+  </div>
+  <div class="gallery-content">
+    <img src="ListaPrecio/ARROZES.jpeg"> <img src="ListaPrecio/BOCADILLOS.jpeg">
+    <img src="ListaPrecio/GOURMET.jpeg"> <img src="ListaPrecio/PASTAS.jpeg">
+    <img src="ListaPrecio/PASTELES.jpeg"> <img src="ListaPrecio/POLLO.jpeg">
+    <img src="ListaPrecio/POSTRES.jpeg"> <img src="ListaPrecio/RES.jpeg">
+    <img src="ListaPrecio/VARIADOS.jpeg">
   </div>
 </div>
 
@@ -226,10 +165,7 @@ body.is-admin .admin-only{display:flex}
   const db = getFirestore(app);
   const colRef = collection(db, "productos");
 
-  let localItems = [];
-  let filterCat = "Todos";
-  let editingId = null;
-  let compressedImg = "";
+  let localItems = [], filterCat = "Todos", editingId = null, compressedImg = "";
 
   const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
   if(isAdmin) document.body.classList.add('is-admin');
@@ -243,10 +179,9 @@ body.is-admin .admin-only{display:flex}
     const grid = document.getElementById('mainGrid');
     const search = document.getElementById('searchInput').value.toLowerCase();
     const filtered = localItems.filter(i => (filterCat === "Todos" || i.cat === filterCat) && i.name.toLowerCase().includes(search));
-
     grid.innerHTML = filtered.map(i => `
       <div class="card" onclick="handleItemClick('${i.id}')">
-        <div class="card-img"><img src="${i.img || 'https://via.placeholder.com/300'}"></div>
+        <div class="card-img"><img src="${i.img || ''}"></div>
         <div class="card-info">
           <div class="card-title">${i.name}</div>
           <div class="card-price">${i.price}</div>
@@ -255,22 +190,18 @@ body.is-admin .admin-only{display:flex}
     `).join('');
   }
 
-  window.handleItemClick = (id) => {
-    if(isAdmin) openEdit(id);
-    else openView(id);
-  };
+  window.handleItemClick = (id) => { isAdmin ? openEdit(id) : openView(id); };
 
   function openView(id) {
     const i = localItems.find(x => x.id === id);
-    document.getElementById('vImg').src = i.img || 'https://via.placeholder.com/300';
+    document.getElementById('vImg').src = i.img;
     document.getElementById('vTitle').innerText = i.name;
     document.getElementById('vPrice').innerText = i.price;
     document.getElementById('vDesc').innerText = i.desc || "";
     document.getElementById('viewOverlay').classList.add('open');
     document.getElementById('btnSendWA').onclick = () => {
-      const note = document.getElementById('clientNote').value;
-      const text = `Hola Darling's Kitchen! Me interesa: *${i.name}* (${i.price}).\nNota: ${note}`;
-      window.open(`https://wa.me/50557031282?text=${encodeURIComponent(text)}`, '_blank');
+      const txt = `Hola Darling's Kitchen! Me interesa: *${i.name}* (${i.price}).\nNota: ${document.getElementById('clientNote').value}`;
+      window.open(`https://wa.me/50557031282?text=${encodeURIComponent(txt)}`, '_blank');
     };
   }
 
@@ -279,23 +210,18 @@ body.is-admin .admin-only{display:flex}
     const i = localItems.find(x => x.id === id);
     document.getElementById('fName').value = i.name;
     document.getElementById('fPrice').value = i.price;
-    document.getElementById('fDesc').value = i.desc;
+    document.getElementById('fDesc').value = i.desc || "";
     document.getElementById('fCat').value = i.cat || "Comidas";
     compressedImg = i.img;
-    const preview = document.getElementById('imgPreview');
-    preview.src = i.img || "";
-    preview.style.display = i.img ? "inline-block" : "none";
-    document.getElementById('formTitle').innerText = "Editar Producto";
+    document.getElementById('imgPreview').src = i.img;
+    document.getElementById('imgPreview').style.display = "inline-block";
     document.getElementById('adminOverlay').classList.add('open');
   }
 
   document.getElementById('btnAdd').onclick = () => {
     editingId = null; compressedImg = "";
     document.getElementById('fName').value = "";
-    document.getElementById('fPrice').value = "";
-    document.getElementById('fDesc').value = "";
     document.getElementById('imgPreview').style.display = "none";
-    document.getElementById('formTitle').innerText = "Nuevo Producto";
     document.getElementById('adminOverlay').classList.add('open');
   };
 
@@ -306,18 +232,9 @@ body.is-admin .admin-only{display:flex}
     }
   };
 
-  window.openPriceGallery = (e) => {
-    e.preventDefault();
-    document.getElementById('galleryOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
+  window.openPriceGallery = (e) => { e.preventDefault(); document.getElementById('galleryOverlay').classList.add('open'); };
+  window.closePriceGallery = () => { document.getElementById('galleryOverlay').classList.remove('open'); };
 
-  window.closePriceGallery = () => {
-    document.getElementById('galleryOverlay').classList.remove('open');
-    document.body.style.overflow = 'auto';
-  };
-
-  /* Lógica de carga de imagen con previsualización */
   document.getElementById('fImg').onchange = (e) => {
     const file = e.target.files[0];
     if(!file) return;
@@ -335,10 +252,8 @@ body.is-admin .admin-only{display:flex}
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         compressedImg = canvas.toDataURL('image/jpeg', 0.7);
-        // Mostrar vista previa para confirmar la elección de Favoritos
-        const preview = document.getElementById('imgPreview');
-        preview.src = compressedImg;
-        preview.style.display = "inline-block";
+        document.getElementById('imgPreview').src = compressedImg;
+        document.getElementById('imgPreview').style.display = "inline-block";
       };
     };
   };
@@ -368,8 +283,6 @@ body.is-admin .admin-only{display:flex}
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText === c));
     render();
   };
-
-  document.getElementById('searchInput').oninput = render;
 </script>
 </body>
 </html>
