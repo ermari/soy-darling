@@ -5,14 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Darling's Kitchen — Catálogo</title>
 <link rel="icon" type="image/jpeg" href="soy_DARLING.jpg">
-
 <link rel="apple-touch-icon" href="soy_DARLING.jpg">
-
 <meta name="theme-color" content="#0a0805">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -23,11 +19,9 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);max-width:440px;margin:0 auto;overflow-x:hidden}
 
-/* Banner de Encabezado */
 .header-banner { width: 100%; line-height: 0; }
 .header-banner img { width: 100%; height: auto; display: block; }
 
-/* Buscador y Categorías */
 .search-wrap{background:var(--rich);padding:10px 15px;position:sticky;top:0;z-index:100}
 .search-inner{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border:1px solid var(--border);border-radius:30px;padding:8px 15px}
 .search-inner input{flex:1;background:none;border:none;outline:none;color:white;font-size:14px}
@@ -35,16 +29,17 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .price-list-trigger {
   display: block; margin: 10px 15px; padding: 12px; background: var(--gold);
   color: var(--black); text-align: center; border-radius: 10px;
-  font-weight: 700; text-decoration: none; font-size: 14px;
+  font-weight: 700; text-decoration: none; font-size: 14px; box-shadow: 0 4px 10px rgba(201,150,58,0.3);
 }
 
 .cats-scroll{display:flex;gap:10px;padding:15px;overflow-x:auto;background:var(--cream);scrollbar-width:none}
-.cat-btn{padding:8px 20px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer}
+.cats-scroll::-webkit-scrollbar{display:none}
+.cat-btn{padding:8px 20px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer;transition:0.3s}
 .cat-btn.active{background:var(--black);color:var(--gold);border-color:var(--gold)}
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 100px}
-.card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);border:1px solid var(--border)}
-.card-img{width:100%;aspect-ratio:1/1;overflow:hidden}
+.card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);border:1px solid var(--border);cursor:pointer}
+.card-img{width:100%;aspect-ratio:1/1;background:#eee;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-info{padding:10px}
 .card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;height:36px;overflow:hidden}
@@ -53,29 +48,27 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
 .overlay.open{display:flex}
 
-/* Galería de Precios */
 .gallery-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; display: none; flex-direction: column; }
 .gallery-overlay.open { display: flex; }
 .gallery-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; color: white; }
 .gallery-content { flex: 1; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; align-items: center; gap: 15px; padding: 20px; }
 .gallery-content img { scroll-snap-align: center; max-width: 90%; max-height: 75vh; object-fit: contain; border-radius: 10px; }
 
-/* Formulario Admin */
 .modal-form{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:25px;max-height:90vh;overflow-y:auto}
 input, select, textarea{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
-.btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);font-weight:700;cursor:pointer;border-radius:10px;border:none}
+.btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);border-radius:10px;font-weight:700;cursor:pointer;border:none}
 #imgPreview{width:100px;height:100px;object-fit:cover;border-radius:10px;margin-bottom:10px;display:none;border:2px solid var(--gold)}
 
-/* Botón flotante */
+.view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden;animation:pop 0.3s ease}
+.view-img img{width:100%;aspect-ratio:1.2/1;object-fit:cover}
+.view-content{padding:20px}
+.btn-wa{width:100%;background:#25d366;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+
 .admin-only{display:none}
 body.is-admin .admin-only{display:flex}
 .fab-add{position:fixed;bottom:30px;right:20px;background:var(--black);color:var(--gold);width:60px;height:60px;border-radius:50%;border:2px solid var(--gold);z-index:200;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 15px rgba(0,0,0,0.4)}
 
-/* Vista Cliente */
-.view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden}
-.view-img img{width:100%;aspect-ratio:1.2/1;object-fit:cover}
-.view-content{padding:20px}
-.btn-wa{width:100%;background:#25d366;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+@keyframes pop{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
 </style>
 </head>
 <body>
@@ -94,10 +87,10 @@ body.is-admin .admin-only{display:flex}
 
 <div class="cats-scroll" id="catBar">
   <button class="cat-btn active" onclick="setCat('Todos')">Todos</button>
+  <button class="cat-btn" onclick="setCat('Bocadillos')">Bocadillos</button>
+  <button class="cat-btn" onclick="setCat('Postres')">Postres</button>
   <button class="cat-btn" onclick="setCat('Comidas')">Comidas</button>
   <button class="cat-btn" onclick="setCat('Bebidas')">Bebidas</button>
-  <button class="cat-btn" onclick="setCat('Postres')">Postres</button>
-  <button class="cat-btn" onclick="setCat('Bocadillos')">Bocadillos</button>
   <button class="cat-btn" onclick="setCat('Eventos')">Eventos</button>
 </div>
 
@@ -109,20 +102,20 @@ body.is-admin .admin-only{display:flex}
     <div style="text-align:center"><img id="imgPreview" src=""></div>
     <input type="text" id="fName" placeholder="Nombre">
     <input type="text" id="fPrice" placeholder="Precio">
+    
     <select id="fCat">
+      <option value="Bocadillos">Bocadillos</option>
+      <option value="Postres">Postres</option>
       <option value="Comidas">Comidas</option>
       <option value="Bebidas">Bebidas</option>
-      <option value="Postres">Postres</option>
-      <option value="Bocadillos">Bocadillos</option>
       <option value="Eventos">Eventos</option>
     </select>
+    
     <textarea id="fDesc" placeholder="Descripción" rows="3"></textarea>
-    
-    <p style="font-size:12px; margin-bottom:5px; color:var(--muted)">Foto del producto:</p>
+    <p style="font-size:12px; margin-bottom:5px; color:var(--muted)">Foto (Cámara o Galería/Favoritos):</p>
     <input type="file" id="fImg" accept="image/*" style="border:none; padding:0">
-    
-    <button class="btn-main" id="btnSave">GUARDAR PRODUCTO</button>
-    <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">Eliminar</button>
+    <button class="btn-main" id="btnSave">GUARDAR CAMBIOS</button>
+    <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">Eliminar Producto</button>
   </div>
 </div>
 
@@ -133,17 +126,18 @@ body.is-admin .admin-only{display:flex}
       <h2 id="vTitle" style="font-family:serif">Nombre</h2>
       <div id="vPrice" style="color:var(--gold); font-weight:700; margin-bottom:10px">C$ 0</div>
       <p id="vDesc" style="font-size:14px; color:gray; margin-bottom:15px"></p>
-      <div style="background:var(--cream); padding:10px; border-radius:10px">
-        <textarea id="clientNote" placeholder="Nota adicional..." rows="2"></textarea>
+      <div style="background:var(--cream); padding:15px; border-radius:12px">
+        <textarea id="clientNote" placeholder="Nota para tu pedido..." rows="2"></textarea>
         <button class="btn-wa" id="btnSendWA">PEDIR POR WHATSAPP</button>
       </div>
+      <button onclick="document.getElementById('viewOverlay').classList.remove('open')" style="width:100%; background:none; border:none; margin-top:15px; color:gray">Cerrar</button>
     </div>
   </div>
 </div>
 
 <div class="gallery-overlay" id="galleryOverlay">
   <div class="gallery-header">
-    <span>Precios</span>
+    <span style="font-family:serif">Listas de Precios</span>
     <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px">&times;</button>
   </div>
   <div class="gallery-content">
@@ -220,17 +214,21 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('fName').value = i.name;
     document.getElementById('fPrice').value = i.price;
     document.getElementById('fDesc').value = i.desc || "";
-    document.getElementById('fCat').value = i.cat || "Comidas";
+    document.getElementById('fCat').value = i.cat || "Bocadillos";
     compressedImg = i.img;
     document.getElementById('imgPreview').src = i.img;
-    document.getElementById('imgPreview').style.display = "inline-block";
+    document.getElementById('imgPreview').style.display = i.img ? "inline-block" : "none";
+    document.getElementById('formTitle').innerText = "Editar Producto";
     document.getElementById('adminOverlay').classList.add('open');
   }
 
   document.getElementById('btnAdd').onclick = () => {
     editingId = null; compressedImg = "";
     document.getElementById('fName').value = "";
+    document.getElementById('fPrice').value = "";
+    document.getElementById('fDesc').value = "";
     document.getElementById('imgPreview').style.display = "none";
+    document.getElementById('formTitle').innerText = "Nuevo Producto";
     document.getElementById('adminOverlay').classList.add('open');
   };
 
@@ -292,6 +290,7 @@ body.is-admin .admin-only{display:flex}
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText === c));
     render();
   };
+  document.getElementById('searchInput').oninput = render;
 </script>
 </body>
 </html>
