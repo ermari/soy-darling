@@ -56,7 +56,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
 .overlay.open{display:flex}
 
-/* Galería de Precios (Nueva) */
+/* Galería de Precios */
 .gallery-overlay {
   position: fixed;
   inset: 0;
@@ -88,7 +88,6 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
   max-height: 75vh;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 .gallery-footer {
   padding: 20px;
@@ -98,7 +97,13 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
   background: rgba(0,0,0,0.5);
 }
 
-/* Card Detalle Cliente */
+/* Formulario Admin y Previsualización */
+.modal-form{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:25px;max-height:90vh;overflow-y:auto}
+input, select, textarea{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
+.btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);border:1px solid var(--gold);border-radius:10px;font-weight:700;cursor:pointer}
+#imgPreview{width:100px;height:100px;object-fit:cover;border-radius:10px;margin-bottom:10px;display:none;border:2px solid var(--gold)}
+
+/* Vista Cliente */
 .view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden;position:relative;animation:pop 0.3s ease}
 .view-img{width:100%;aspect-ratio:1.2/1;background:#000}
 .view-img img{width:100%;height:100%;object-fit:cover}
@@ -108,11 +113,6 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .order-box{background:var(--cream);padding:15px;border-radius:12px;margin-top:10px}
 .order-box textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:inherit;font-size:13px;resize:none;margin-bottom:10px}
 .btn-wa{width:100%;background:#25d366;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
-
-/* Formulario Admin */
-.modal-form{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:25px}
-input, select, textarea{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
-.btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);border:1px solid var(--gold);border-radius:10px;font-weight:700;cursor:pointer}
 
 /* Floating Actions */
 .admin-only{display:none}
@@ -151,10 +151,9 @@ body.is-admin .admin-only{display:flex}
 
 <div class="gallery-overlay" id="galleryOverlay">
   <div class="gallery-header">
-    <span style="font-family:serif; font-size:18px">Nuestras Listas de Precios</span>
+    <span style="font-family:serif; font-size:18px">Listas de Precios</span>
     <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer">&times;</button>
   </div>
-  
   <div class="gallery-content" id="galleryItems">
     <img src="ListaPrecio/ARROZES.jpeg" alt="Precios Arroces">
     <img src="ListaPrecio/BOCADILLOS.jpeg" alt="Precios Bocadillos">
@@ -166,10 +165,7 @@ body.is-admin .admin-only{display:flex}
     <img src="ListaPrecio/RES.jpeg" alt="Precios Res">
     <img src="ListaPrecio/VARIADOS.jpeg" alt="Precios Variados">
   </div>
-
-  <div class="gallery-footer">
-    ◀ Desliza para ver más categorías ▶
-  </div>
+  <div class="gallery-footer">◀ Desliza para ver más ▶</div>
 </div>
 
 <div class="overlay" id="viewOverlay" onclick="closeOverlays(event)">
@@ -179,15 +175,11 @@ body.is-admin .admin-only{display:flex}
       <h2 class="view-title" id="vTitle">Nombre</h2>
       <div class="view-price" id="vPrice">C$ 0</div>
       <p id="vDesc" style="font-size:14px; color:gray; margin-bottom:15px"></p>
-      
       <div class="order-box">
         <textarea id="clientNote" placeholder="Escribe aquí tu pedido o consulta..." rows="2"></textarea>
-        <button class="btn-wa" id="btnSendWA">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" style="filter:invert(1)">
-          PEDIR POR WHATSAPP
-        </button>
+        <button class="btn-wa" id="btnSendWA">PEDIR POR WHATSAPP</button>
       </div>
-      <button onclick="document.getElementById('viewOverlay').classList.remove('open')" style="width:100%; background:none; border:none; margin-top:15px; color:gray; cursor:pointer">Cerrar</button>
+      <button onclick="document.getElementById('viewOverlay').classList.remove('open')" style="width:100%; background:none; border:none; margin-top:15px; color:gray">Cerrar</button>
     </div>
   </div>
 </div>
@@ -195,6 +187,9 @@ body.is-admin .admin-only{display:flex}
 <div class="overlay" id="adminOverlay" onclick="closeOverlays(event)">
   <div class="modal-form" onclick="event.stopPropagation()">
     <h3 id="formTitle" style="margin-bottom:15px; font-family:serif">Producto</h3>
+    <div style="text-align:center">
+        <img id="imgPreview" src="">
+    </div>
     <input type="text" id="fName" placeholder="Nombre">
     <input type="text" id="fPrice" placeholder="Precio">
     <select id="fCat">
@@ -205,9 +200,10 @@ body.is-admin .admin-only{display:flex}
       <option value="Eventos">Eventos</option>
     </select>
     <textarea id="fDesc" placeholder="Descripción" rows="3"></textarea>
+    <label style="font-size:12px; color:var(--muted)">Elegir de Cámara o Galería (Favoritos):</label>
     <input type="file" id="fImg" accept="image/*">
     <button class="btn-main" id="btnSave">GUARDAR CAMBIOS</button>
-    <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px; cursor:pointer">ELIMINAR PRODUCTO</button>
+    <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">ELIMINAR PRODUCTO</button>
   </div>
 </div>
 
@@ -271,7 +267,6 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('vPrice').innerText = i.price;
     document.getElementById('vDesc').innerText = i.desc || "";
     document.getElementById('viewOverlay').classList.add('open');
-
     document.getElementById('btnSendWA').onclick = () => {
       const note = document.getElementById('clientNote').value;
       const text = `Hola Darling's Kitchen! Me interesa: *${i.name}* (${i.price}).\nNota: ${note}`;
@@ -287,6 +282,9 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('fDesc').value = i.desc;
     document.getElementById('fCat').value = i.cat || "Comidas";
     compressedImg = i.img;
+    const preview = document.getElementById('imgPreview');
+    preview.src = i.img || "";
+    preview.style.display = i.img ? "inline-block" : "none";
     document.getElementById('formTitle').innerText = "Editar Producto";
     document.getElementById('adminOverlay').classList.add('open');
   }
@@ -296,6 +294,7 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('fName').value = "";
     document.getElementById('fPrice').value = "";
     document.getElementById('fDesc').value = "";
+    document.getElementById('imgPreview').style.display = "none";
     document.getElementById('formTitle').innerText = "Nuevo Producto";
     document.getElementById('adminOverlay').classList.add('open');
   };
@@ -307,11 +306,10 @@ body.is-admin .admin-only{display:flex}
     }
   };
 
-  // Lógica Galería de Precios
   window.openPriceGallery = (e) => {
     e.preventDefault();
     document.getElementById('galleryOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden'; 
+    document.body.style.overflow = 'hidden';
   };
 
   window.closePriceGallery = () => {
@@ -319,6 +317,7 @@ body.is-admin .admin-only{display:flex}
     document.body.style.overflow = 'auto';
   };
 
+  /* Lógica de carga de imagen con previsualización */
   document.getElementById('fImg').onchange = (e) => {
     const file = e.target.files[0];
     if(!file) return;
@@ -336,6 +335,10 @@ body.is-admin .admin-only{display:flex}
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         compressedImg = canvas.toDataURL('image/jpeg', 0.7);
+        // Mostrar vista previa para confirmar la elección de Favoritos
+        const preview = document.getElementById('imgPreview');
+        preview.src = compressedImg;
+        preview.style.display = "inline-block";
       };
     };
   };
