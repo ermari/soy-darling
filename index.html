@@ -53,6 +53,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .gallery-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; color: white; }
 .gallery-content { flex: 1; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; align-items: center; gap: 15px; padding: 20px; }
 .gallery-content img { scroll-snap-align: center; max-width: 90%; max-height: 75vh; object-fit: contain; border-radius: 10px; }
+.gallery-footer { color:white; text-align:center; padding:15px; font-size:12px; opacity: 0.8; }
 
 .modal-form{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:25px;max-height:90vh;overflow-y:auto}
 input, select, textarea{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
@@ -112,10 +113,13 @@ body.is-admin .admin-only{display:flex}
     </select>
     
     <textarea id="fDesc" placeholder="Descripción" rows="3"></textarea>
-    <p style="font-size:12px; margin-bottom:5px; color:var(--muted)">Foto (Cámara o Galería/Favoritos):</p>
+    <p style="font-size:12px; margin-bottom:5px; color:var(--muted)">Foto (Cámara o Galería):</p>
     <input type="file" id="fImg" accept="image/*" style="border:none; padding:0">
     <button class="btn-main" id="btnSave">GUARDAR CAMBIOS</button>
     <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">Eliminar Producto</button>
+  </div>
+</div>
+
 <div class="gallery-overlay" id="galleryOverlay">
   <div class="gallery-header">
     <span style="font-family:serif; font-size:18px">Nuestras Listas de Precios</span>
@@ -123,17 +127,17 @@ body.is-admin .admin-only{display:flex}
   </div>
   
   <div class="gallery-content" id="galleryItems">
-    <img src="ListaPrecio/ARROZES.jpeg" alt="Precios Arroces">
-    <img src="ListaPrecio/BOCADILLOS.jpeg" alt="Precios Bocadillos">
-    <img src="ListaPrecio/GOURMET.jpeg" alt="Precios Gourmet">
-    <img src="ListaPrecio/PASTAS.jpeg" alt="Precios Pastas">
-    <img src="ListaPrecio/PASTELES.jpeg" alt="Precios Pasteles">
-    <img src="ListaPrecio/POLLO.jpeg" alt="Precios Pollo">
-    <img src="ListaPrecio/POSTRES.jpeg" alt="Precios Postres">
-    <img src="ListaPrecio/RES.jpeg" alt="Precios Res">
-    <img src="ListaPrecio/VARIADOS.jpeg" alt="Precios Variados">
-	<img src="ListaPrecio/PRESENTACION.jpg" alt="Quienes Somo">
-	<img src="ListaPrecio/AGREDECIIENTO.jpg" alt="Gracias">
+    <img src="ListaPrecio/ARROZES.jpeg" alt="Arroces">
+    <img src="ListaPrecio/BOCADILLOS.jpeg" alt="Bocadillos">
+    <img src="ListaPrecio/GOURMET.jpeg" alt="Gourmet">
+    <img src="ListaPrecio/PASTAS.jpeg" alt="Pastas">
+    <img src="ListaPrecio/PASTELES.jpeg" alt="Pasteles">
+    <img src="ListaPrecio/POLLO.jpeg" alt="Pollo">
+    <img src="ListaPrecio/POSTRES.jpeg" alt="Postres">
+    <img src="ListaPrecio/RES.jpeg" alt="Res">
+    <img src="ListaPrecio/VARIADOS.jpeg" alt="Variados">
+    <img src="ListaPrecio/PRESENTACION.jpg" alt="Quienes Somos">
+    <img src="ListaPrecio/AGREDECIMIENTO.jpg" alt="Gracias">
   </div>
 
   <div class="gallery-footer">
@@ -154,21 +158,6 @@ body.is-admin .admin-only{display:flex}
       </div>
       <button onclick="document.getElementById('viewOverlay').classList.remove('open')" style="width:100%; background:none; border:none; margin-top:15px; color:gray">Cerrar</button>
     </div>
-  </div>
-</div>
-
-<div class="gallery-overlay" id="galleryOverlay">
-  <div class="gallery-header">
-    <span style="font-family:serif">Listas de Precios</span>
-    <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px">&times;</button>
-  </div>
-  <div class="gallery-content">
-    <img src="ListaPrecio/ARROZES.jpeg"> <img src="ListaPrecio/BOCADILLOS.jpeg">
-    <img src="ListaPrecio/GOURMET.jpeg"> <img src="ListaPrecio/PASTAS.jpeg">
-    <img src="ListaPrecio/PASTELES.jpeg"> <img src="ListaPrecio/POLLO.jpeg">
-    <img src="ListaPrecio/POSTRES.jpeg"> <img src="ListaPrecio/RES.jpeg">
-    <img src="ListaPrecio/VARIADOS.jpeg"> <img src="ListaPrecio/PRESENTACION.jpg">
-    <img src="ListaPrecio/AGREDECIMIENTO.jpg">
   </div>
 </div>
 
