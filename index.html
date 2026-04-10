@@ -94,9 +94,9 @@ body.is-admin .admin-only{display:flex}
 
 <div class="cats-scroll" id="catBar">
   <button class="cat-btn active" onclick="setCat('Todos')">Todos</button>
-  <button class="cat-btn" onclick="setCat('Bocadillos')">Pasteles</button>
+  <button class="cat-btn" onclick="setCat('Pasteles')">Pasteles</button>
   <button class="cat-btn" onclick="setCat('Bocadillos')">Bocadillos</button>
-    <button class="cat-btn" onclick="setCat('Comidas')">Comidas</button>
+  <button class="cat-btn" onclick="setCat('Comidas')">Comidas</button>
   <button class="cat-btn" onclick="setCat('Postres')">Postres</button>
   <button class="cat-btn" onclick="setCat('Bebidas')">Bebidas</button>
   <button class="cat-btn" onclick="setCat('Eventos')">Eventos</button>
@@ -115,8 +115,8 @@ body.is-admin .admin-only{display:flex}
     <input type="text" id="fName" placeholder="Nombre">
     <input type="text" id="fPrice" placeholder="Precio">
     <select id="fCat">
+      <option value="Pasteles">Pasteles</option>
       <option value="Bocadillos">Bocadillos</option>
-      <option value="Postres">Pasteles</option>
       <option value="Postres">Postres</option>
       <option value="Comidas">Comidas</option>
       <option value="Bebidas">Bebidas</option>
@@ -179,7 +179,7 @@ body.is-admin .admin-only{display:flex}
   const colRef = collection(db, "productos");
 
   let localItems = [], filterCat = "Todos", editingId = null, compressedImg = "";
-  let itemsLimit = 4; // Límite inicial de 4 productos
+  let itemsLimit = 4;
 
   const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
   if(isAdmin) document.body.classList.add('is-admin');
@@ -192,11 +192,7 @@ body.is-admin .admin-only{display:flex}
   function render() {
     const grid = document.getElementById('mainGrid');
     const search = document.getElementById('searchInput').value.toLowerCase();
-    
-    // Filtrar primero
     const filtered = localItems.filter(i => (filterCat === "Todos" || i.cat === filterCat) && i.name.toLowerCase().includes(search));
-    
-    // Aplicar límite de paginación
     const paginated = filtered.slice(0, itemsLimit);
 
     grid.innerHTML = paginated.map(i => `
@@ -209,18 +205,14 @@ body.is-admin .admin-only{display:flex}
       </div>
     `).join('');
 
-    // Mostrar/Ocultar botón de carga
     document.getElementById('paginationWrap').style.display = filtered.length > itemsLimit ? 'block' : 'none';
   }
 
-  window.loadMore = () => {
-    itemsLimit += 4; // Aumentar de 4 en 4
-    render();
-  };
+  window.loadMore = () => { itemsLimit += 4; render(); };
 
   window.setCat = (c) => {
     filterCat = c;
-    itemsLimit = 4; // Reiniciar límite al cambiar categoría
+    itemsLimit = 4;
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText === c));
     render();
   };
@@ -234,8 +226,15 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('vPrice').innerText = i.price;
     document.getElementById('vDesc').innerText = i.desc || "";
     document.getElementById('viewOverlay').classList.add('open');
+    
     document.getElementById('btnSendWA').onclick = () => {
-      const txt = `Hola Darling's Kitchen! Me interesa: *${i.name}* (${i.price}).\nNota: ${document.getElementById('clientNote').value}`;
+      const note = document.getElementById('clientNote').value;
+      const emojiCat = i.cat === 'Pasteles' ? '🎂' : (i.cat === 'Comidas' ? '🍱' : '🍴');
+      const txt = `✨ *Nuevo Pedido - Darling's Kitchen* ✨\n\n` +
+                  `${emojiCat} *Producto:* ${i.name}\n` +
+                  `💰 *Precio:* ${i.price}\n` +
+                  `📝 *Nota:* ${note || 'Sin notas adicionales'}\n\n` +
+                  `¡Cocinando con amor! 👩‍🍳`;
       window.open(`https://wa.me/50557031282?text=${encodeURIComponent(txt)}`, '_blank');
     };
   }
@@ -318,7 +317,7 @@ body.is-admin .admin-only{display:flex}
   };
 
   document.getElementById('searchInput').oninput = () => {
-    itemsLimit = 4; // Reiniciar al buscar
+    itemsLimit = 4;
     render();
   };
 </script>
