@@ -37,13 +37,19 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .cat-btn{padding:8px 20px;background:white;border:1px solid var(--border);border-radius:20px;white-space:nowrap;font-size:13px;cursor:pointer;transition:0.3s}
 .cat-btn.active{background:var(--black);color:var(--gold);border-color:var(--gold)}
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 100px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 20px}
 .card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);border:1px solid var(--border);cursor:pointer}
 .card-img{width:100%;aspect-ratio:1/1;background:#eee;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-info{padding:10px}
 .card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;height:36px;overflow:hidden}
 .card-price{color:var(--gold);font-weight:700;font-size:14px;margin-top:5px}
+
+.pagination-wrap { padding: 0 15px 100px; text-align: center; }
+.btn-load-more { 
+  width: 100%; padding: 12px; background: white; border: 1px solid var(--gold); 
+  color: var(--gold); border-radius: 10px; font-weight: 600; cursor: pointer;
+}
 
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
 .overlay.open{display:flex}
@@ -97,13 +103,16 @@ body.is-admin .admin-only{display:flex}
 
 <div class="grid" id="mainGrid"></div>
 
+<div class="pagination-wrap" id="paginationWrap">
+    <button class="btn-load-more" id="btnLoadMore" onclick="loadMore()">Cargar más productos</button>
+</div>
+
 <div class="overlay" id="adminOverlay" onclick="closeOverlays(event)">
   <div class="modal-form" onclick="event.stopPropagation()">
     <h3 id="formTitle" style="margin-bottom:15px; font-family:serif">Producto</h3>
     <div style="text-align:center"><img id="imgPreview" src=""></div>
     <input type="text" id="fName" placeholder="Nombre">
     <input type="text" id="fPrice" placeholder="Precio">
-    
     <select id="fCat">
       <option value="Bocadillos">Bocadillos</option>
       <option value="Postres">Postres</option>
@@ -111,9 +120,7 @@ body.is-admin .admin-only{display:flex}
       <option value="Bebidas">Bebidas</option>
       <option value="Eventos">Eventos</option>
     </select>
-    
     <textarea id="fDesc" placeholder="Descripción" rows="3"></textarea>
-    <p style="font-size:12px; margin-bottom:5px; color:var(--muted)">Foto (Cámara o Galería):</p>
     <input type="file" id="fImg" accept="image/*" style="border:none; padding:0">
     <button class="btn-main" id="btnSave">GUARDAR CAMBIOS</button>
     <button id="btnDel" class="admin-only" style="width:100%; background:none; border:none; color:red; margin-top:15px">Eliminar Producto</button>
@@ -125,24 +132,15 @@ body.is-admin .admin-only{display:flex}
     <span style="font-family:serif; font-size:18px">Nuestras Listas de Precios</span>
     <button onclick="closePriceGallery()" style="background:none; border:none; color:white; font-size:30px; cursor:pointer">&times;</button>
   </div>
-  
   <div class="gallery-content" id="galleryItems">
-    <img src="ListaPrecio/ARROZES.jpeg" alt="Arroces">
-    <img src="ListaPrecio/BOCADILLOS.jpeg" alt="Bocadillos">
-    <img src="ListaPrecio/GOURMET.jpeg" alt="Gourmet">
-    <img src="ListaPrecio/PASTAS.jpeg" alt="Pastas">
-    <img src="ListaPrecio/PASTELES.jpeg" alt="Pasteles">
-    <img src="ListaPrecio/POLLO.jpeg" alt="Pollo">
-    <img src="ListaPrecio/POSTRES.jpeg" alt="Postres">
-    <img src="ListaPrecio/RES.jpeg" alt="Res">
-    <img src="ListaPrecio/VARIADOS.jpeg" alt="Variados">
-    <img src="ListaPrecio/PRESENTACION.jpg" alt="Quienes Somos">
-    <img src="ListaPrecio/AGREDECIMIENTO.jpg" alt="Gracias">
+    <img src="ListaPrecio/ARROZES.jpeg"> <img src="ListaPrecio/BOCADILLOS.jpeg">
+    <img src="ListaPrecio/GOURMET.jpeg"> <img src="ListaPrecio/PASTAS.jpeg">
+    <img src="ListaPrecio/PASTELES.jpeg"> <img src="ListaPrecio/POLLO.jpeg">
+    <img src="ListaPrecio/POSTRES.jpeg"> <img src="ListaPrecio/RES.jpeg">
+    <img src="ListaPrecio/VARIADOS.jpeg"> <img src="ListaPrecio/PRESENTACION.jpg">
+    <img src="ListaPrecio/AGREDECIMIENTO.jpg">
   </div>
-
-  <div class="gallery-footer">
-    ◀ Desliza para ver más categorías ▶
-  </div>
+  <div class="gallery-footer">◀ Desliza para ver más categorías ▶</div>
 </div>
 
 <div class="overlay" id="viewOverlay" onclick="closeOverlays(event)">
@@ -152,10 +150,8 @@ body.is-admin .admin-only{display:flex}
       <h2 id="vTitle" style="font-family:serif">Nombre</h2>
       <div id="vPrice" style="color:var(--gold); font-weight:700; margin-bottom:10px">C$ 0</div>
       <p id="vDesc" style="font-size:14px; color:gray; margin-bottom:15px"></p>
-      <div style="background:var(--cream); padding:15px; border-radius:12px">
-        <textarea id="clientNote" placeholder="Nota para tu pedido..." rows="2"></textarea>
-        <button class="btn-wa" id="btnSendWA">PEDIR POR WHATSAPP</button>
-      </div>
+      <textarea id="clientNote" placeholder="Nota para tu pedido..." rows="2"></textarea>
+      <button class="btn-wa" id="btnSendWA">PEDIR POR WHATSAPP</button>
       <button onclick="document.getElementById('viewOverlay').classList.remove('open')" style="width:100%; background:none; border:none; margin-top:15px; color:gray">Cerrar</button>
     </div>
   </div>
@@ -181,6 +177,7 @@ body.is-admin .admin-only{display:flex}
   const colRef = collection(db, "productos");
 
   let localItems = [], filterCat = "Todos", editingId = null, compressedImg = "";
+  let itemsLimit = 4; // Límite inicial de 4 productos
 
   const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
   if(isAdmin) document.body.classList.add('is-admin');
@@ -193,8 +190,14 @@ body.is-admin .admin-only{display:flex}
   function render() {
     const grid = document.getElementById('mainGrid');
     const search = document.getElementById('searchInput').value.toLowerCase();
+    
+    // Filtrar primero
     const filtered = localItems.filter(i => (filterCat === "Todos" || i.cat === filterCat) && i.name.toLowerCase().includes(search));
-    grid.innerHTML = filtered.map(i => `
+    
+    // Aplicar límite de paginación
+    const paginated = filtered.slice(0, itemsLimit);
+
+    grid.innerHTML = paginated.map(i => `
       <div class="card" onclick="handleItemClick('${i.id}')">
         <div class="card-img"><img src="${i.img || ''}"></div>
         <div class="card-info">
@@ -203,7 +206,22 @@ body.is-admin .admin-only{display:flex}
         </div>
       </div>
     `).join('');
+
+    // Mostrar/Ocultar botón de carga
+    document.getElementById('paginationWrap').style.display = filtered.length > itemsLimit ? 'block' : 'none';
   }
+
+  window.loadMore = () => {
+    itemsLimit += 4; // Aumentar de 4 en 4
+    render();
+  };
+
+  window.setCat = (c) => {
+    filterCat = c;
+    itemsLimit = 4; // Reiniciar límite al cambiar categoría
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText === c));
+    render();
+  };
 
   window.handleItemClick = (id) => { isAdmin ? openEdit(id) : openView(id); };
 
@@ -297,12 +315,10 @@ body.is-admin .admin-only{display:flex}
     }
   };
 
-  window.setCat = (c) => {
-    filterCat = c;
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText === c));
+  document.getElementById('searchInput').oninput = () => {
+    itemsLimit = 4; // Reiniciar al buscar
     render();
   };
-  document.getElementById('searchInput').oninput = render;
 </script>
 </body>
 </html>
