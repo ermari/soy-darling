@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Darling's Kitchen — Catálogo</title>
+<title>Soy Darling - Catálogos</title>
 <link rel="icon" type="image/jpeg" href="soy_DARLING.jpg">
 <link rel="apple-touch-icon" href="soy_DARLING.jpg">
 <meta name="theme-color" content="#0a0805">
 <meta name="mobile-web-app-capable" content="yes">
-<meta property="og:title" content="Darling's Kitchen — Catálogos">
+<meta property="og:title" content="Soy Darling - Catálogos">
 <meta property="og:description" content="Pasteles, bocadillos, comidas y más. ¡Encuentra tu antojo! 🍰">
 <meta property="og:image" content="soy_DARLING.jpg">
 <meta property="og:type" content="website">
@@ -92,6 +92,14 @@ body.is-admin .admin-only{display:flex}
 
 @keyframes pop{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PDRCF10RE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6PDRCF10RE');
+</script>
 </head>
 <body>
 
@@ -245,7 +253,7 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('btnSendWA').onclick = () => {
       const note = document.getElementById('clientNote').value;
       const emojiCat = i.cat === 'Pasteles' ? '🎂' : (i.cat === 'Comidas' ? '🍱' : '🍴');
-      const txt = `✨ *Nuevo Pedido - Darling's Kitchen* ✨\n\n` +
+      const txt = `✨ *Nuevo Pedido - Soy Darling* ✨\n\n` +
                   `${emojiCat} *Producto:* ${i.name}\n` +
                   `💰 *Precio:* ${i.price}\n` +
                   `📝 *Nota:* ${note || 'Sin notas adicionales'}\n\n` +
