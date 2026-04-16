@@ -17,7 +17,14 @@
   --text:#2a2018;--muted:#7a6a50;--border:rgba(201,150,58,0.25);--r:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);max-width:440px;margin:0 auto;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);margin:0 auto;overflow-x:hidden}
+
+@media (min-width: 768px) {
+  body { max-width: 700px; padding: 0 20px; }
+}
+@media (min-width: 1024px) {
+  body { max-width: 960px; padding: 0 30px; }
+}
 
 .header-banner { width: 100%; line-height: 0; }
 .header-banner img { width: 100%; height: auto; display: block; }
@@ -38,6 +45,8 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .cat-btn.active{background:var(--black);color:var(--gold);border-color:var(--gold)}
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px 20px}
+@media (min-width: 768px) { .grid{grid-template-columns:repeat(3, 1fr);gap:16px;padding:0 20px 30px} }
+@media (min-width: 1024px) { .grid{grid-template-columns:repeat(4, 1fr);gap:20px;padding:0 30px 40px} }
 .card{background:white;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);border:1px solid var(--border);cursor:pointer}
 .card-img{width:100%;aspect-ratio:1/1;background:#eee;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
@@ -62,11 +71,13 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);m
 .gallery-footer { color:white; text-align:center; padding:15px; font-size:12px; opacity: 0.8; }
 
 .modal-form{background:var(--cream);width:100%;max-width:380px;border-radius:20px;padding:25px;max-height:90vh;overflow-y:auto}
+@media (min-width: 768px) { .modal-form{max-width:450px;padding:30px} }
 input, select, textarea{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);font-family:inherit}
 .btn-main{width:100%;padding:14px;background:var(--black);color:var(--gold);border-radius:10px;font-weight:700;cursor:pointer;border:none}
 #imgPreview{width:100px;height:100px;object-fit:cover;border-radius:10px;margin-bottom:10px;display:none;border:2px solid var(--gold)}
 
 .view-card{background:white;width:100%;max-width:350px;border-radius:20px;overflow:hidden;animation:pop 0.3s ease}
+@media (min-width: 768px) { .view-card{max-width:500px} }
 .view-img img{width:100%;aspect-ratio:1.2/1;object-fit:cover}
 .view-content{padding:20px}
 .btn-wa{width:100%;background:#25d366;color:white;border:none;padding:12px;border-radius:10px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
@@ -179,7 +190,7 @@ body.is-admin .admin-only{display:flex}
   const colRef = collection(db, "productos");
 
   let localItems = [], filterCat = "Todos", editingId = null, compressedImg = "";
-  let itemsLimit = 4;
+  let itemsLimit = 8;
 
   const isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
   if(isAdmin) document.body.classList.add('is-admin');
@@ -208,11 +219,11 @@ body.is-admin .admin-only{display:flex}
     document.getElementById('paginationWrap').style.display = filtered.length > itemsLimit ? 'block' : 'none';
   }
 
-  window.loadMore = () => { itemsLimit += 4; render(); };
+  window.loadMore = () => { itemsLimit += 8; render(); };
 
   window.setCat = (c) => {
     filterCat = c;
-    itemsLimit = 4;
+    itemsLimit = 8;
     document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.innerText === c));
     render();
   };
@@ -317,7 +328,7 @@ body.is-admin .admin-only{display:flex}
   };
 
   document.getElementById('searchInput').oninput = () => {
-    itemsLimit = 4;
+    itemsLimit = 8;
     render();
   };
 </script>
